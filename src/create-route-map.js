@@ -21,11 +21,12 @@ export function createRouteMap (
   // $flow-disable-line
   const nameMap: Dictionary<RouteRecord> = oldNameMap || Object.create(null)
 
+  // 遍历路由数组
   routes.forEach(route => {
     addRouteRecord(pathList, pathMap, nameMap, route)
   })
 
-  // ensure wildcard routes are always at the end
+  // ensure wildcard routes are always at the end 确保通配符在数组末尾
   for (let i = 0, l = pathList.length; i < l; i++) {
     if (pathList[i] === '*') {
       pathList.push(pathList.splice(i, 1)[0])
@@ -37,7 +38,7 @@ export function createRouteMap (
   if (process.env.NODE_ENV === 'development') {
     // warn if routes do not include leading slashes
     const found = pathList
-    // check for missing leading slash
+    // check for missing leading slash 没有前斜杠
       .filter(path => path && path.charAt(0) !== '*' && path.charAt(0) !== '/')
 
     if (found.length > 0) {
@@ -72,6 +73,7 @@ function addRouteRecord (
     )
   }
 
+  // 编译正则的选项
   const pathToRegexpOptions: PathToRegexpOptions =
     route.pathToRegexpOptions || {}
   const normalizedPath = normalizePath(path, parent, pathToRegexpOptions.strict)
@@ -90,7 +92,7 @@ function addRouteRecord (
     matchAs,
     redirect: route.redirect,
     beforeEnter: route.beforeEnter,
-    meta: route.meta || {},
+    meta: route.meta || {}, // 路由元信息
     props:
       route.props == null
         ? {}
@@ -134,6 +136,7 @@ function addRouteRecord (
     pathMap[record.path] = record
   }
 
+  // 别名
   if (route.alias !== undefined) {
     const aliases = Array.isArray(route.alias) ? route.alias : [route.alias]
     for (let i = 0; i < aliases.length; ++i) {
@@ -175,6 +178,7 @@ function addRouteRecord (
   }
 }
 
+// 解析路由正则
 function compileRouteRegex (
   path: string,
   pathToRegexpOptions: PathToRegexpOptions
@@ -193,13 +197,14 @@ function compileRouteRegex (
   return regex
 }
 
+// 路径处理
 function normalizePath (
   path: string,
   parent?: RouteRecord,
   strict?: boolean
 ): string {
-  if (!strict) path = path.replace(/\/$/, '')
-  if (path[0] === '/') return path
-  if (parent == null) return path
-  return cleanPath(`${parent.path}/${path}`)
+  if (!strict) path = path.replace(/\/$/, '') // 非严格下，结尾/去除
+  if (path[0] === '/') return path   // 如果开头是/ 返回 path
+  if (parent == null) return path   // 如果无parent 返回 path
+  return cleanPath(`${parent.path}/${path}`) // 处理'//'
 }

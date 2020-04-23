@@ -214,7 +214,7 @@ function normalizeBase (base: ?string): string {
   if (!base) {
     if (inBrowser) {
       // respect <base> tag
-      const baseEl = document.querySelector('base')
+      const baseEl = document.querySelector('base')  // <base> 标签为页面上的所有链接规定默认地址或默认目标。
       base = (baseEl && baseEl.getAttribute('href')) || '/'
       // strip full URL origin
       base = base.replace(/^https?:\/\/[^\/]+/, '')

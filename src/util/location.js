@@ -43,16 +43,16 @@ export function normalizeLocation (
     return next
   }
 
-  const parsedPath = parsePath(next.path || '')
+  const parsedPath = parsePath(next.path || '') // 分割 # 或 ?
   const basePath = (current && current.path) || '/'
   const path = parsedPath.path
     ? resolvePath(parsedPath.path, basePath, append || next.append)
-    : basePath
-
+    : basePath  // resolve path
+  // resolve query
   const query = resolveQuery(
     parsedPath.query,
     next.query,
-    router && router.options.parseQuery
+    router && router.options.parseQuery // 提供自定义查询字符串的解析/反解析函数。覆盖默认行为。
   )
 
   let hash = next.hash || parsedPath.hash

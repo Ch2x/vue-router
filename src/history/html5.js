@@ -11,7 +11,7 @@ export class HTML5History extends History {
   constructor (router: Router, base: ?string) {
     super(router, base)
 
-    const expectScroll = router.options.scrollBehavior
+    const expectScroll = router.options.scrollBehavior // 自定义路由切换时页面如何滚动
     const supportsScroll = supportsPushState && expectScroll
 
     if (supportsScroll) {

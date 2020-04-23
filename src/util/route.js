@@ -11,7 +11,7 @@ export function createRoute (
   redirectedFrom?: ?Location,
   router?: VueRouter
 ): Route {
-  const stringifyQuery = router && router.options.stringifyQuery
+  const stringifyQuery = router && router.options.stringifyQuery // 提供自定义查询字符串的解析/反解析函数。覆盖默认行为。
 
   let query: any = location.query || {}
   try {

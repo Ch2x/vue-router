@@ -41,8 +41,8 @@ export default class VueRouter {
     this.afterHooks = []
     this.matcher = createMatcher(options.routes || [], this)
 
-    let mode = options.mode || 'hash'
-    this.fallback = mode === 'history' && !supportsPushState && options.fallback !== false
+    let mode = options.mode || 'hash' // 默认hash模式
+    this.fallback = mode === 'history' && !supportsPushState && options.fallback !== false  // 当浏览器不支持 history.pushState 控制路由是否应该回退到 hash 模式。默认值为 true。
     if (this.fallback) {
       mode = 'hash'
     }
@@ -257,6 +257,7 @@ function createHref (base: string, fullPath: string, mode) {
 VueRouter.install = install
 VueRouter.version = '__VERSION__'
 
+// 标签引入 直接加载
 if (inBrowser && window.Vue) {
   window.Vue.use(VueRouter)
 }

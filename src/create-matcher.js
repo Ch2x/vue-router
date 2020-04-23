@@ -28,6 +28,7 @@ export function createMatcher (
     currentRoute?: Route,
     redirectedFrom?: Location
   ): Route {
+    // 序列化location
     const location = normalizeLocation(raw, currentRoute, false, router)
     const { name } = location
 

@@ -4,6 +4,7 @@ import Link from './components/link'
 export let _Vue
 
 export function install (Vue) {
+  // Vue-router是否已经安装
   if (install.installed && _Vue === Vue) return
   install.installed = true
 
@@ -18,8 +19,10 @@ export function install (Vue) {
     }
   }
 
+  // 添加默认beforeCreate 和 destroyed 钩子函数
   Vue.mixin({
     beforeCreate () {
+      // 如果路由不存在 this.$options.router 在 new Vue()的时候引入
       if (isDef(this.$options.router)) {
         this._routerRoot = this
         this._router = this.$options.router
@@ -28,6 +31,7 @@ export function install (Vue) {
       } else {
         this._routerRoot = (this.$parent && this.$parent._routerRoot) || this
       }
+      // 注册路由实列
       registerInstance(this, this)
     },
     destroyed () {
@@ -35,6 +39,7 @@ export function install (Vue) {
     }
   })
 
+  // 变量$router 与 $route 访问
   Object.defineProperty(Vue.prototype, '$router', {
     get () { return this._routerRoot._router }
   })
@@ -43,6 +48,7 @@ export function install (Vue) {
     get () { return this._routerRoot._route }
   })
 
+  // 安装全局组件 RouterView 与 RouterLink
   Vue.component('RouterView', View)
   Vue.component('RouterLink', Link)
 
