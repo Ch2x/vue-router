@@ -22,7 +22,7 @@ export function install (Vue) {
   // 添加默认beforeCreate 和 destroyed 钩子函数
   Vue.mixin({
     beforeCreate () {
-      // 如果路由不存在 this.$options.router 在 new Vue()的时候引入
+      // 如果路由不存在 this.$options.router 在 new Vue({router})的时候引入
       if (isDef(this.$options.router)) {
         this._routerRoot = this
         this._router = this.$options.router

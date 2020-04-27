@@ -47,5 +47,17 @@ new Vue({
       <pre id="hash">{{ $route.hash }}</pre>
       <router-view class="view"></router-view>
     </div>
-  `
+  `,
+  beforeCreate () {
+    console.log('beforeCreate', this.$route)
+  },
+  created () {
+    console.log('created', this.$route)
+  },
+  beforeMount () {
+    console.log('beforeMount', this.$route)
+  },
+  mounted () {
+    console.log('mounted', this.$route)
+  }
 }).$mount('#app')

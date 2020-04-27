@@ -53,10 +53,10 @@ export default class VueRouter {
 
     switch (mode) {
       case 'history':
-        this.history = new HTML5History(this, options.base)
+        this.history = new HTML5History(this, options.base) // history 模式
         break
       case 'hash':
-        this.history = new HashHistory(this, options.base, this.fallback)
+        this.history = new HashHistory(this, options.base, this.fallback) // hash 模式
         break
       case 'abstract':
         this.history = new AbstractHistory(this, options.base)
